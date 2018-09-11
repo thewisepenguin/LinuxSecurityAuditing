@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/static/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/styles/awesome-font.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/styles/login/login-util.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/login/login-style.css">
+<!--===============================================================================================-->
+</head>
+<title>VeryBerry - Security audit tool for Linux servers</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="/static/styles/w3style.css">
+<link rel="stylesheet" href="/static/styles/w3-theme-deep-purple.css">
+<link rel="stylesheet" href="/static/styles/roboto-font.css">
+<link rel="stylesheet" href="/static/styles/awesome-font.css">
+<link rel="icon" href="/static/favicon.ico">
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-purple w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+      <a href="/" class="w3-bar-item w3-button w3-hide-small w3-hover-purple ">
+<img src="/static/raspberry-close-up.png" alt="veryberry logo" width="32" height="24" border="0"><h id="beside_logo_text">VeryBerry</h></a>
+    <a href="#myFooter" class="w3-bar-item w3-button w3-hide-small w3-hover-purple">About</a>
+<!--    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-purple">Values</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-purple">News</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-purple">Contact</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-purple">Clients</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-purple">Partners</a>
+-->
+  </div>
+</div>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="post", action="http://localhost:5000/auth.html">
+					<span class="login100-form-title">
+						Sign In
+					</span>
+
+                    <div class="wrap-input100 validate-input" data-validate = "">
+						<input class="input100" type="text" name="address" placeholder="Server address: ('localhost' if left blank)">
+						<span class="focus-input100"></span>
+					</div>
+<br>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+						<input class="input100" type="text" name="username" placeholder="login: ('root' if left blank)">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Please enter password">
+						<input class="input100" type="password" name="pass" placeholder="Password">
+						<span class="focus-input100"></span>
+					</div>
+
+
+<br>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Sign in
+						</button>
+					</div>
+<br>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/styles/login/main.js"></script>
+
+
+</body>
+</html>

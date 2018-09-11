@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<title>VeryBerry - Security audit tool for Linux servers</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="/static/styles/w3style.css">
+<link rel="stylesheet" href="/static/styles/w3-theme-deep-purple.css">
+<link rel="stylesheet" href="/static/styles/roboto-font.css">
+<link rel="stylesheet" href="/static/styles/awesome-font.css">
+<link rel="icon" href="/static/favicon.ico">
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-purple w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+      <a href="/" class="w3-bar-item w3-button w3-hide-small w3-hover-purple ">
+<img src="/static/raspberry-close-up.png" alt="veryberry logo" width="32" height="24" border="0"><h id="beside_logo_text">VeryBerry</h></a>
+    <a href="#myFooter" class="w3-bar-item w3-button w3-hide-small w3-hover-purple">About</a>
+<!--    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-purple">Values</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-purple">News</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-purple">Contact</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-purple">Clients</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-purple">Partners</a>
+-->
+  </div>
+</div>
+
+<!-- Sidebar -->
+
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+    <i class="fa fa-remove"></i>
+  </a>
+  <h4 class="w3-bar-item"><b>Menu</b></h4>
+  <a class="w3-bar-item w3-button w3-hover-yellow" href="#OSI">OS Information</a>
+  <a class="w3-bar-item w3-button w3-hover-yellow" href="#hwinfo">Hardware Information</a>
+  <a class="w3-bar-item w3-button w3-hover-yellow" href="#secinfo">Security Information</a>
+  <a class="w3-bar-item w3-button w3-hover-yellow" href="#myFooter">etc.</a>
+</nav>
+-->
+<!-- Overlay effect when opening sidebar on small screens -->
+<!--
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:250px">
+
+  <div id="OSI" class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-deep-purple">Operating System Summery</h1>
+
+
+<table class="os_table">
+  <tr>
+    <th>Property</th>
+    <th>Value</th>
+
+  </tr>
+  <tr>
+    <td>OS Type</td>
+    <td>{{ ostype }}</td>
+
+  </tr>
+  <tr>
+    <td>OS Description</td>
+    <td>{{ osdes }}</td>
+
+  </tr>
+  <tr>
+    <td>Kernel version</td>
+    <td>{{ kerver }}</td>
+
+  </tr>
+  <tr>
+    <td>Machine Architecture</td>
+    <td>{{ machinetype }}</td>
+
+  </tr>
+  <tr>
+    <td>Up time</td>
+    <td>{{ uptime }}</td>
+
+  </tr>
+
+</table>
+
+
+
+
+
+    </div>
+
+      <!--
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+    -->
+  </div>
+
+  <div id="hwinfo" class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-deep-purple">Hardware Details</h1>
+      <table class="os_table">
+  <tr>
+    <th>Hardware Type</th>
+    <th>Value</th>
+
+  </tr>
+  <tr>
+    <td>CPU name</td>
+    <td>{{ cpuname }}</td>
+  <tr>
+    <td>Hardware list</td>
+    <td><a href="lshw.html"  target="_blank">Click here to see hardware tree</a> </td>
+
+
+</table>
+
+    </div>
+      <!--
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+    -->
+  </div>
+
+  <div id="secinfo" class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-deep-purple">Security Details</h1>
+            <table class="security_table">
+  <tr>
+    <th style="width: 20px;">Security Factor</th>
+    <th style="width:20px">Value</th>
+    <th style="width:20px">status</th>
+    <th>How to fix?</th>
+  </tr>
+{% for element in security_list %}
+{% if element[2] == 'SECURE' %}
+    <tr>
+                    <td><p><font> {{ element[0] }}</font></p></td>
+                    <td><p><font color="green"> {{ element[1] }}</font></p></td>
+                    <td><p><font color="green"> {{ element[2] }}</font></p></td>
+                    <td><p><font color="green"> {{ element[3] }}</font></p></td>
+
+    </tr>
+{% elif element[2] == 'NOT SECURE!' %}
+        <tr>
+                    <td><p><font> {{ element[0] }}</font></p></td>
+                    <td><p><font color="red"> {{ element[1] }}</font></p></td>
+                    <td><p><font color="red"> {{ element[2] }}</font></p></td>
+                    <td><p><font color="red"> {{ element[3] }}</font></p></td>
+
+    </tr>
+{% else %}
+        <tr>
+                    <td><p><font> {{ element[0] }}</font></p></td>
+                    <td><p><font color="#f4bf42"> {{ element[1] }}</font></p></td>
+                    <td><p><font color="#f4bf42"> {{ element[2] }}</font></p></td>
+                    <td><p><font color="#f4bf42"> {{ element[3] }}</font></p></td>
+
+    </tr>
+{% endif %}
+{% endfor %}
+</table>
+    </div>
+   <!--
+    <div class="w3-third w3-container">
+      <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
+      <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
+    </div>
+    -->
+  </div>
+
+  <!-- Pagination -->
+    <!--
+  <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <a class="w3-button w3-black" href="#">1</a>
+      <a class="w3-button w3-hover-black" href="#">2</a>
+      <a class="w3-button w3-hover-black" href="#">3</a>
+      <a class="w3-button w3-hover-black" href="#">4</a>
+      <a class="w3-button w3-hover-black" href="#">5</a>
+      <a class="w3-button w3-hover-black" href="#">»</a>
+    </div>
+  </div>
+-->
+  <footer id="myFooter">
+    <div class="w3-container w3-theme-l2 w3-padding-32">
+      <h4>About</h4>
+    </div>
+
+    <div class="w3-container w3-theme-l1">
+      <p>Bash and python code by Ali Ahmadkhani, and web view is originated from <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+  </footer>
+
+<!-- END MAIN -->
+</div>
+<script src="/static/scripts/main.js"></script>
+
+
+
+</body>
+</html>
