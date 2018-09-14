@@ -149,6 +149,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     <th style="width:20px">Value</th>
     <th style="width:20px">status</th>
     <th>How to fix?</th>
+    <th>Wanna fix?</th>
   </tr>
 {% for element in security_list %}
 {% if element[2] == 'SECURE' %}
@@ -157,6 +158,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
                     <td><p><font color="green"> {{ element[1] }}</font></p></td>
                     <td><p><font color="green"> {{ element[2] }}</font></p></td>
                     <td><p><font color="green"> {{ element[3] }}</font></p></td>
+                    <td><p><font color="green">OK!</font></p></td>
 
     </tr>
 {% elif element[2] == 'NOT SECURE!' %}
@@ -165,6 +167,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
                     <td><p><font color="red"> {{ element[1] }}</font></p></td>
                     <td><p><font color="red"> {{ element[2] }}</font></p></td>
                     <td><p><font color="red"> {{ element[3] }}</font></p></td>
+                    <td><p><font color="red"> </font></p></td>
 
     </tr>
 {% else %}
@@ -173,6 +176,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
                     <td><p><font color="#f4bf42"> {{ element[1] }}</font></p></td>
                     <td><p><font color="#f4bf42"> {{ element[2] }}</font></p></td>
                     <td><p><font color="#f4bf42"> {{ element[3] }}</font></p></td>
+                    <td><p><font color="#f4bf42"> NOTHING HERE!</font></p></td>
 
     </tr>
 {% endif %}

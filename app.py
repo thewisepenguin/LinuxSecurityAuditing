@@ -61,7 +61,7 @@ def student():
     return render_template('login.html')
 
 
-@app.route('/auth.html',methods = ['POST', 'GET'])
+@app.route('/main.html',methods = ['POST', 'GET'])
 def result():
     if request.method == 'POST':
 
@@ -226,16 +226,13 @@ def result():
 
 
 
-
-
-
         return render_template('main_page.html', ostype=ostype, osdes=osdes, kerver=kerver, machinetype=machinetype, \
                                uptime=uptime[2:], cpuname=cpuname, security_list=security_list)
 
 
-@app.route('/main_page.html')
-def main_page():
-    pass
+# @app.route('/main_page.html')
+# def main_page():
+#     pass
 
 
 if __name__ == '__main__':
