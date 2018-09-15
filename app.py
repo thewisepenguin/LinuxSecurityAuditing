@@ -4,8 +4,7 @@
 
 
 
-
-from flask import Flask, render_template, request, url_for, redirect, abort
+from flask import Flask, render_template, request, url_for, redirect, abort, jsonify
 import time
 import select
 import paramiko
@@ -15,6 +14,10 @@ import os
 nsec = 'NOT SECURE!'
 sec = 'SECURE'
 nd = 'NOT DETERMINED!'
+
+address = ''
+user = ''
+password = ''
 
 
 reload(sys)
@@ -64,15 +67,22 @@ def student():
 @app.route('/main.html',methods = ['POST', 'GET'])
 def result():
     if request.method == 'POST':
+        global address
+        global user
+        global password
 
-        address = request.form.get('address')
-        user = request.form.get('username')
-        password = request.form.get('pass')
+        if not address:
+            address = request.form.get('address')
+        if not user:
+            user = request.form.get('username')
+        if not password:
+            password = request.form.get('pass')
 
         if not address:
             address = '127.0.0.1'
         if not user:
             user = 'root'
+        print(user)
         i=1
         while True:
             try:
@@ -230,10 +240,34 @@ def result():
                                uptime=uptime[2:], cpuname=cpuname, security_list=security_list)
 
 
-# @app.route('/main_page.html')
-# def main_page():
-#     pass
+@app.route('/process', methods=['POST'])
+def process():
+    which_btn = ''
+
+    if "SELINUX" in request.form:
+        which_btn = "SELINUX"
+
+    elif "SSH root login permission" in request.form:
+        which_btn = "SSH root login permission"
+
+    elif "Shared Memory Security" in request.form:
+        which_btn = "Shared Memory Security"
+
+    elif "Preventing ip spoofing" in request.form:
+        which_btn = "Preventing ip spoofing"
+
+    elif "Minimum password policy" in request.form:
+        which_btn = "Minimum password policy"
+
+    elif "Different class password policy" in request.form:
+        which_btn = "Different class password policy"
+
+    elif "Prevent password brute-force" in request.form:
+        which_btn = "Prevent password brute-force"
+    print(user,password,address)
+    return jsonify({which_btn:'fixed!'})
 
 
 if __name__ == '__main__':
     app.run(debug = True)
+
