@@ -11,6 +11,7 @@ import paramiko
 import sys
 import os
 
+
 nsec = 'NOT SECURE!'
 sec = 'SECURE'
 nd = 'NOT DETERMINED!'
@@ -64,7 +65,7 @@ def student():
     return render_template('login.html')
 
 
-@app.route('/main.html',methods = ['POST', 'GET'])
+@app.route('/main.html', methods=['POST', 'GET'])
 def result():
     if request.method == 'POST':
         global address
@@ -82,7 +83,7 @@ def result():
             address = '127.0.0.1'
         if not user:
             user = 'root'
-        print(user)
+
         i=1
         while True:
             try:
@@ -140,7 +141,6 @@ def result():
         else:
             security_list.append(("SELINUX", "checking done!", selinux_status[0], selinux_status[1]))
 
-
         s, sshrootlogin = remote_command_executor(ssh, '''grep -i 'permitrootlogin' /etc/ssh/sshd_config | head -n1''')
         if 'yes' in sshrootlogin.lower() and sshrootlogin[:1] != '#':
             sshrootlogin_status = (nsec, 'in /etc/ssh/sshd_config, set \"permitrootlogin\" to \"no\" ')
@@ -167,7 +167,6 @@ def result():
         else:
             security_list.append(("Shared Memory Security", 'checking done!', sharedmemory_status[0], sharedmemory_status[1]))
 
-
         s, ipspoofing = remote_command_executor(ssh, """cat /etc/host.conf""")
         if "multi on" or "order hosts," in ipspoofing:
             ipspoofing_status = (nsec, 'in /etc/host.conf change:\n1:\'multi on\' to \'nospoof on\'\n2-change \'order hosts\' to \'hosts order\'')
@@ -180,7 +179,6 @@ def result():
             security_list.append(("Preventing ip spoofing", "We couldn't check!", ipspoofing_status[0], ipspoofing_status[1]))
         else:
             security_list.append(("Preventing ip spoofing", "checking done!", ipspoofing_status[0], ipspoofing_status[1]))
-
 
         s, strong_password_len = remote_command_executor(ssh, """grep minlen /etc/security/pwquality.conf""")
         if s == 'stdout' and 'minlen' in strong_password_len and strong_password_len[:1] is not '#':
@@ -200,7 +198,6 @@ def result():
         else:
             security_list.append(("Minimum password policy", "checking done!", strong_password_len_status[0], strong_password_len_status[1]))
 
-
         s, strong_password_class = remote_command_executor(ssh, """grep minclass /etc/security/pwquality.conf""")
         if s == 'stdout' and 'minclass' in strong_password_class and strong_password_len[:1] is not '#':
             len = 0
@@ -219,7 +216,6 @@ def result():
         else:
             security_list.append(("Different class password policy", "checking done!", strong_password_class_status[0], strong_password_class_status[1]))
 
-
         s, bf_prevent = remote_command_executor(ssh, "cat /etc/pam.d/login")
         if "auth required pam_tally2.so deny=4 even_deny_root" in bf_prevent:
             bf_prevent_status = (sec, 'It\'s ok, nothing to do')
@@ -228,14 +224,12 @@ def result():
         else:
             bf_prevent_status = (nsec, 'add these lines to /etc/pam.d/login:\nauth required pam_tally2.so deny=4 even_deny_root\nunlock time=1200')
 
-
         if bf_prevent_status[0] is nd:
             security_list.append(("Prevent password brute-force", "We couldn't check!", bf_prevent_status[0], bf_prevent_status[1]))
         else:
             security_list.append(("Prevent password brute-force", "checking done!", bf_prevent_status[0], bf_prevent_status[1]))
 
-
-
+        ssh.close()
         return render_template('main_page.html', ostype=ostype, osdes=osdes, kerver=kerver, machinetype=machinetype, \
                                uptime=uptime[2:], cpuname=cpuname, security_list=security_list)
 
@@ -264,10 +258,9 @@ def process():
 
     elif "Prevent password brute-force" in request.form:
         which_btn = "Prevent password brute-force"
-    print(user,password,address)
-    return jsonify({which_btn:'fixed!'})
+
+    return redirect('/main_page.html')
 
 
 if __name__ == '__main__':
     app.run(debug = True)
-
