@@ -101,6 +101,30 @@ def result():
             if i == 3:
                 return render_template('failure.html', failure_cause="Could not connect to %s. request timeout..." % address)
 
+        which_btn = 'nothing'
+
+        if "SELINUX" in request.form:
+            which_btn = "SELINUX"
+
+        elif "SSH root login permission" in request.form:
+            which_btn = "SSH root login permission"
+
+        elif "Shared Memory Security" in request.form:
+            which_btn = "Shared Memory Security"
+
+        elif "Preventing ip spoofing" in request.form:
+            which_btn = "Preventing ip spoofing"
+
+        elif "Minimum password policy" in request.form:
+            which_btn = "Minimum password policy"
+
+        elif "Different class password policy" in request.form:
+            which_btn = "Different class password policy"
+
+        elif "Prevent password brute-force" in request.form:
+            which_btn = "Prevent password brute-force"
+
+        print(which_btn)
 
         s, ostype = remote_command_executor(ssh, 'uname -o -s')
         # print ostype
