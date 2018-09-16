@@ -27,6 +27,20 @@ sys.setdefaultencoding('utf8')
 app = Flask(__name__)
 
 
+def set_credentials(usr,passwd,add):
+    global user
+    global address
+    global password
+
+    user = usr
+    address = add
+    password = passwd
+
+
+def get_credentials():
+    return user,password,address
+
+
 def remote_command_executor(client, command):
     stdout_data = []
     stderr_data = []
@@ -67,17 +81,40 @@ def student():
 
 @app.route('/main.html', methods=['POST', 'GET'])
 def result():
-    if request.method == 'POST':
-        global address
-        global user
-        global password
 
-        if not address:
+    if request.method == 'POST':
+
+        which_btn = ''
+        if "SELINUX" in request.form:
+            which_btn = "SELINUX"
+
+        elif "SSH root login permission" in request.form:
+            which_btn = "SSH root login permission"
+
+        elif "Shared Memory Security" in request.form:
+            which_btn = "Shared Memory Security"
+
+        elif "Preventing ip spoofing" in request.form:
+            which_btn = "Preventing ip spoofing"
+
+        elif "Minimum password policy" in request.form:
+            which_btn = "Minimum password policy"
+
+        elif "Different class password policy" in request.form:
+            which_btn = "Different class password policy"
+
+        elif "Prevent password brute-force" in request.form:
+            which_btn = "Prevent password brute-force"
+
+        if which_btn is '':
             address = request.form.get('address')
-        if not user:
             user = request.form.get('username')
-        if not password:
             password = request.form.get('pass')
+            set_credentials(user,password,address)
+        else:
+            user, password, address = get_credentials()
+
+
 
         if not address:
             address = '127.0.0.1'
@@ -101,30 +138,33 @@ def result():
             if i == 3:
                 return render_template('failure.html', failure_cause="Could not connect to %s. request timeout..." % address)
 
-        which_btn = 'nothing'
 
-        if "SELINUX" in request.form:
-            which_btn = "SELINUX"
 
-        elif "SSH root login permission" in request.form:
-            which_btn = "SSH root login permission"
 
-        elif "Shared Memory Security" in request.form:
-            which_btn = "Shared Memory Security"
+        if which_btn is "SELINUX":
+            s, ostype = remote_command_executor(ssh, 'uname -o -s')
 
-        elif "Preventing ip spoofing" in request.form:
-            which_btn = "Preventing ip spoofing"
+        elif which_btn is "SSH root login permission":
+            s, ostype = remote_command_executor(ssh, 'uname -o -s')
 
-        elif "Minimum password policy" in request.form:
-            which_btn = "Minimum password policy"
+        elif which_btn is "Shared Memory Security":
+            s, ostype = remote_command_executor(ssh, 'uname -o -s')
 
-        elif "Different class password policy" in request.form:
-            which_btn = "Different class password policy"
+        elif which_btn is "Preventing ip spoofing":
+            s, ostype = remote_command_executor(ssh, 'uname -o -s')
 
-        elif "Prevent password brute-force" in request.form:
-            which_btn = "Prevent password brute-force"
+        elif which_btn is "Minimum password policy":
+            s, ostype = remote_command_executor(ssh, 'uname -o -s')
 
-        print(which_btn)
+        elif which_btn is "Different class password policy":
+            s, ostype = remote_command_executor(ssh, 'uname -o -s')
+
+        elif which_btn is "Prevent password brute-force":
+            s, ostype = remote_command_executor(ssh, 'uname -o -s')
+
+
+
+
 
         s, ostype = remote_command_executor(ssh, 'uname -o -s')
         # print ostype
@@ -258,32 +298,32 @@ def result():
                                uptime=uptime[2:], cpuname=cpuname, security_list=security_list)
 
 
-@app.route('/process', methods=['POST'])
-def process():
-    which_btn = ''
-
-    if "SELINUX" in request.form:
-        which_btn = "SELINUX"
-
-    elif "SSH root login permission" in request.form:
-        which_btn = "SSH root login permission"
-
-    elif "Shared Memory Security" in request.form:
-        which_btn = "Shared Memory Security"
-
-    elif "Preventing ip spoofing" in request.form:
-        which_btn = "Preventing ip spoofing"
-
-    elif "Minimum password policy" in request.form:
-        which_btn = "Minimum password policy"
-
-    elif "Different class password policy" in request.form:
-        which_btn = "Different class password policy"
-
-    elif "Prevent password brute-force" in request.form:
-        which_btn = "Prevent password brute-force"
-
-    return redirect('/main_page.html')
+# @app.route('/process', methods=['POST'])
+# def process():
+#     which_btn = ''
+#
+#     if "SELINUX" in request.form:
+#         which_btn = "SELINUX"
+#
+#     elif "SSH root login permission" in request.form:
+#         which_btn = "SSH root login permission"
+#
+#     elif "Shared Memory Security" in request.form:
+#         which_btn = "Shared Memory Security"
+#
+#     elif "Preventing ip spoofing" in request.form:
+#         which_btn = "Preventing ip spoofing"
+#
+#     elif "Minimum password policy" in request.form:
+#         which_btn = "Minimum password policy"
+#
+#     elif "Different class password policy" in request.form:
+#         which_btn = "Different class password policy"
+#
+#     elif "Prevent password brute-force" in request.form:
+#         which_btn = "Prevent password brute-force"
+#
+#     return redirect('/main_page.html')
 
 
 if __name__ == '__main__':
