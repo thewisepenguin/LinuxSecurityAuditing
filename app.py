@@ -142,26 +142,28 @@ def result():
 
 
         if which_btn is "SELINUX":
-            s, ostype = remote_command_executor(ssh, 'uname -o -s')
-
+            s, result1 = remote_command_executor(ssh, '''getenforce on''')
+            print(result1)
         elif which_btn is "SSH root login permission":
-            s, ostype = remote_command_executor(ssh, 'uname -o -s')
-
+            s, result2 = remote_command_executor(ssh, """echo 'permitrootlogin no' >> /etc/ssh/sshd_config""")
+            print(result2)
         elif which_btn is "Shared Memory Security":
-            s, ostype = remote_command_executor(ssh, 'uname -o -s')
-
+            s, result3 = remote_command_executor(ssh, """echo 'none /run/shm tmpfs defaults,ro 0 0' >> /etc/fstab""")
+            print(result3)
         elif which_btn is "Preventing ip spoofing":
-            s, ostype = remote_command_executor(ssh, 'uname -o -s')
-
+            s, result4 = remote_command_executor(ssh, """echo 'nospoof on' > /etc/host.conf""")
+            s, result5 = remote_command_executor(ssh, "echo 'hosts order' >> /etc/host.conf")
+            print(result4,result5)
         elif which_btn is "Minimum password policy":
-            s, ostype = remote_command_executor(ssh, 'uname -o -s')
-
+            s, result6 = remote_command_executor(ssh, "echo 'minlen 12' >> /etc/security/pwquality.conf")
+            print(result6)
         elif which_btn is "Different class password policy":
-            s, ostype = remote_command_executor(ssh, 'uname -o -s')
-
+            s, result7 = remote_command_executor(ssh, "echo 'minclass 3' >> /etc/security/pwquality.conf")
+            print(result7)
         elif which_btn is "Prevent password brute-force":
-            s, ostype = remote_command_executor(ssh, 'uname -o -s')
-
+            s, result8 = remote_command_executor(ssh, "echo 'auth required pam_tally2.so deny=4 even_deny_root' >> /etc/pam.d/login")
+            s, result9 = remote_command_executor(ssh, "echo 'unlock time=1200' >> /etc/pam.d/login")
+            print(result8,result9)
 
 
 
