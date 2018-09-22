@@ -2,11 +2,11 @@ import paramiko
 import sys
 
 nbytes = 4096
-hostname = '127.0.0.1'
+hostname = '192.168.56.101'
 port = 22
 username = 'ali'
-password = 'ila47'
-command = 'man ls'
+password = 'ila'
+command = """echo %s | sudo -S bash -c \"echo \'minclass = 3\' >> /etc/security/pwquality.conf\""""%password
 
 client = paramiko.Transport((hostname, port))
 client.connect(username=username, password=password)

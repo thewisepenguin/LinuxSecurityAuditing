@@ -142,27 +142,27 @@ def result():
 
 
         if which_btn is "SELINUX":
-            s, result1 = remote_command_executor(ssh, '''getenforce on''')
+            s, result1 = remote_command_executor(ssh, '''echo %s | sudo -S getenforce on'''%password)
             print(result1)
         elif which_btn is "SSH root login permission":
-            s, result2 = remote_command_executor(ssh, """echo 'permitrootlogin no' >> /etc/ssh/sshd_config""")
+            s, result2 = remote_command_executor(ssh, """echo %s | sudo -S echo 'permitrootlogin no' >> /etc/ssh/sshd_config"""%password)
             print(result2)
         elif which_btn is "Shared Memory Security":
-            s, result3 = remote_command_executor(ssh, """echo 'none /run/shm tmpfs defaults,ro 0 0' >> /etc/fstab""")
+            s, result3 = remote_command_executor(ssh, """echo %s | sudo -S echo 'none /run/shm tmpfs defaults,ro 0 0' >> /etc/fstab"""%password)
             print(result3)
         elif which_btn is "Preventing ip spoofing":
-            s, result4 = remote_command_executor(ssh, """echo 'nospoof on' > /etc/host.conf""")
-            s, result5 = remote_command_executor(ssh, "echo 'hosts order' >> /etc/host.conf")
+            s, result4 = remote_command_executor(ssh, """echo %s | sudo -S echo 'nospoof on' > /etc/host.conf"""%password)
+            s, result5 = remote_command_executor(ssh, "echo %s | sudo -S echo 'hosts order' >> /etc/host.conf"%password)
             print(result4,result5)
         elif which_btn is "Minimum password policy":
-            s, result6 = remote_command_executor(ssh, "echo 'minlen 12' >> /etc/security/pwquality.conf")
+            s, result6 = remote_command_executor(ssh, "echo %s | sudo -S echo 'minlen 12' >> /etc/security/pwquality.conf"%password)
             print(result6)
         elif which_btn is "Different class password policy":
-            s, result7 = remote_command_executor(ssh, "echo 'minclass 3' >> /etc/security/pwquality.conf")
+            s, result7 = remote_command_executor(ssh, """echo %s | sudo -S bash -c \"echo \'minclass = 3\' >> /etc/security/pwquality.conf\""""%password)
             print(result7)
         elif which_btn is "Prevent password brute-force":
-            s, result8 = remote_command_executor(ssh, "echo 'auth required pam_tally2.so deny=4 even_deny_root' >> /etc/pam.d/login")
-            s, result9 = remote_command_executor(ssh, "echo 'unlock time=1200' >> /etc/pam.d/login")
+            s, result8 = remote_command_executor(ssh, "echo %s | sudo -S echo 'auth required pam_tally2.so deny=4 even_deny_root' >> /etc/pam.d/login"%password)
+            s, result9 = remote_command_executor(ssh, "echo %s | sudo -S echo 'unlock time=1200' >> /etc/pam.d/login"%password)
             print(result8,result9)
 
 
